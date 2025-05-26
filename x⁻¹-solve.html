@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <style type="text/css" media="all">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      color: #ccc;
+    }
+    
+    @font-face {
+      font-family: 'digital-7';
+      src: url('digital-7.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    
+    @font-face {
+      font-family: 'digital-7-italic';
+      src: url('digital-7 (italic).ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    
+    
+    
+    
+    
+    
+    body {
+      width: 100%;
+      height: 100vh;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .container {
+      width: 320px;
+      height: 650px;
+      background: #000;
+      border: 3px solid #fff;
+      border-radius: 30px;
+      box-shadow: 0px 0px 0px #fff,
+        inset 0px 0px 20px #333,
+        inset -0px -0px 20px #333;
+    }
+    
+    .container .calculator-container {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border-radius: 30px;
+    }
+    
+    .container .calculator-container .calculator-external {
+      width: 100%;
+      height: 100%;
+      justify-items: center;
+      border-radius: 30px;
+    }
+    
+    .container .calculator-container .header-section {
+      width: 100%;
+      height: 200px;
+      background: transparent;
+      justify-items: center;
+      border-radius: 30px;
+    }
+    
+    .container .calculator-container .header-section .petra-solar {
+      width: 85%;
+      height: 70px;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .container .calculator-container .header-section .petra-solar .petra {
+      background: transparent;
+      height: 60%;
+      font-size: 4.5px;
+      align-items: center;
+      align-content: center;
+      text-align: center;
+      padding-left: 10px;
+    }
+    
+    .container .calculator-container .header-section .petra-solar .petra .img {
+      width: 50%;
+      height: 20px;
+    }
+    
+    .container .calculator-container .header-section .petra-solar .petra h2 {
+      color: #ccc;
+      font-weight: bold;
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+    
+    .container .calculator-container .header-section .petra-solar .petra .h1-1 {
+      color: #ccc;
+      font-style: italic;
+      font-weight: bold;
+      font-family: serif;
+      font-size: 11px;
+    }
+    
+    .container .calculator-container .header-section .petra-solar .petra .h1-2 {
+      color: #ccc;
+      font-style: italic;
+      font-weight: bold;
+      font-family: 'digital-7';
+      font-size: 15px;
+      letter-spacing: 1px;
+      
+    }
+    
+    .container .calculator-container .header-section .petra-solar .solar {
+      width: 150px;
+      height: 75%;
+      background: transparent;
+      border: 1px solid #111;
+      display: flex;
+      justify-content: right;
+      align-items: center;
+      padding-right: 5px;
+    }
+    
+    .container .calculator-container .header-section .petra-solar .solar .solar-system {
+      width: 80%;
+      height: 95%;
+      background: #1D1428;
+      border-radius: 8px;
+      border: 2px solid #333;
+      box-shadow: inset 0 0 10px #111;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    
+    .container .calculator-container .header-section .petra-solar .solar .solar-system .vertical-line {
+      width: 1px;
+      height: 100%;
+      background: #000;
+    }
+    
+    .container .calculator-container .header-section .monitor {
+      width: 87%;
+      height: 130px;
+      background: #000;
+      justify-items: center;
+      border: 2px solid #111;
+      border-radius: 7px;
+    }
+    
+    .container .calculator-container .header-section .monitor .display {
+      width: 95%;
+      height: 80%;
+      background: #294347;
+      margin-bottom: 7px;
+      margin-top: 2px;
+      border: 2px solid #111;
+      border-radius: 6px;
+    }
+    
+    .container .calculator-container .header-section .monitor .display .input {
+      width: 100%;
+      height: 50%;
+      background: #9DDFCB;
+      color: #000;
+      user-select: none;
+      border-style: none;
+      outline: none;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      padding: 5px 10px;
+      font-size: 40px;
+      position: relative;
+      white-space: nowrap;
+      overflow: scroll;
+      font-family: 'digital-7';
+      font-weight: bold;
+    }
+    
+    #cursor {
+      display: inline-block;
+      animation: blink 1s step-end infinite;
+      color: #000;
+      font-weight: bold;
+    }
+    
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+    
+    .container .calculator-container .header-section .monitor .display .output {
+      width: 100%;
+      height: 50%;
+      background: #9DDFCB;
+      color: #000;
+      border-style: none;
+      outline: none;
+      position: relative;
+      text-align: right;
+      /* আউটপুট ডান দিকে অ্যালাইন করার জন্য যোগ করা */
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      font-size: 40px;
+      padding: 5px 10px;
+      font-family: 'digital-7';
+      overflow: scroll;
+      font-weight: bold;
+    }
+    
+    .container .calculator-container .header-section .monitor .calculator-type {
+      letter-spacing: 5.5px;
+      padding-left: 4px;
+      color: #333;
+      font-size: 14px;
+    }
+    
+    .container .calculator-container .button-area {
+      width: 90%;
+      height: 445px;
+      background: transparent;
+      justify-items: center;
+      padding: 0 5px;
+      border-radius: 30px;
+    }
+    
+    .container .calculator-container .button-area .small-button {
+      width: 100%;
+      height: 200px;
+      background: #000000;
+      display: grid;
+      justify-items: center;
+    }
+    
+    .container .calculator-container .button-area .small-button .btn-up {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .container .calculator-container .button-area .small-button .btn-up .btn-up-left,
+    .btn-up-center,
+    .btn-up-right {
+      display: grid;
+      grid-column-gap: 15px;
+      grid-row-gap: 0px;
+      width: 33.33%;
+      background: #000;
+    }
+    
+    .container .calculator-container .button-area .small-button .btn-up .btn-up-left {
+      justify-content: left;
+      align-items: center;
+    }
+    
+    .container .calculator-container .button-area .small-button .btn-up .btn-up-center {
+      display: flex;
+      justify-content: center;
+    }
+    
+    .container .calculator-container .button-area .small-button .btn-up .btn-up-right {
+      justify-content: right;
+      align-items: center;
+    }
+    
+    .circle {
+      width: 80px;
+      height: 80px;
+      display: grid;
+      padding: 4px;
+      grid-column-gap: 10px;
+      column-span: 1;
+      background: #000;
+      justify-content: center;
+      z-index: 99;
+    }
+    
+    .btn {
+      width: 30px;
+      height: 25px;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    
+    .btn1 {
+      border-top-left-radius: 60%;
+      border-top-right-radius: 60%;
+    }
+    
+    .yy {
+      grid-column: 3;
+    }
+    
+    .btn2 {
+      border-top-left-radius: 60%;
+      border-bottom-left-radius: 60%;
+      left: -10px;
+    }
+    
+    .btn3 {
+      border-bottom-right-radius: 60%;
+      border-top-right-radius: 60%;
+    }
+    
+    .btn4 {
+      border-bottom-right-radius: 60%;
+      border-bottom-left-radius: 60%;
+    }
+    
+    .container .calculator-container .button-area .small-button .btn-mid {
+      display: grid;
+      grid-row-gap: 15px;
+      width: 100%;
+      background: #000;
+      justify-content: space-between;
+      padding-top: 5px;
+    }
+    
+    .container .calculator-container .button-area .small-button .btn-mid .sml-btn {
+      width: 35px;
+      height: 25px;
+      font-weight: bold;
+      font-size: 15px;
+      background: #111;
+      border-radius: 40%;
+    }
+    
+    .container .calculator-container .button-area .big-button {
+      display: grid;
+      grid-row-gap: 3px;
+      width: 100%;
+      height: 230px;
+      background: #000;
+      justify-content: space-between;
+      padding-top: 15px;
+    }
+    
+    .container .calculator-container .button-area .big-button .bg-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #ddd;
+      color: #000000;
+      font-weight: bold;
+      font-size: 22px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="calculator-container">
+      <div class="calculator-external">
+        <div class="header-section">
+          <div class="petra-solar">
+            <div class="petra">
+              <img src="petra.png" alt="petra" class="img">
+              <h2>PETRA</h2>
+              <h1 class="h1-1">PBK-991ES PLUS</h1>
+              <h1 class="h1-2">NATURAL DISPLAY</h1>
+            </div>
+            <div class="solar">
+              <div class="solar-system">
+                <div class="vertical-line"></div>
+                <div class="vertical-line"></div>
+                <div class="vertical-line"></div>
+              </div>
+            </div>
+          </div>
+          <div class="monitor">
+            <div class="display">
+              <div class="input"><span id="cursor">|</span></div>
+              <div class="output"></div>
+            </div>
+            <h3 class="calculator-type">SCIENTIFIC CALCULATOR</h3>
+          </div>
+        </div>
+        <div class="button-area">
+          <div class="small-button">
+            <div class="btn-up">
+              <div class="btn-up-left">
+                <button class="sml-btn" style="border-radius: 50%;width: 32px;height: 32px;background: #111; font-size: 10px;font-weight: bold;">SHIFT</button>
+                <button class="sml-btn" style="grid-column: 2; border-radius: 50%;width: 32px;height: 32px;background: #111;font-size: 9px;font-weight: bold;">ALPHA</button>
+                <button class="sml-btn" style="width: 35px;height: 25px;background: #111;border-radius: 40%;font-size: 10px;font-weight: bold;">CALC</button>
+                <button class="sml-btn" style="width: 35px;height: 25px;background: #111;border-radius: 40%;font-weight: bold;">∫□dx</button>
+              </div>
+              <div class="btn-up-center">
+                <div class="circle">
+                  <div class="hi"></div>
+                  <button class="btn btn1">^</button>
+                  <div class="yy"></div>
+                  <button class="btn btn2">&lt;</button>
+                  <div></div>
+                  <button class="btn btn3">&gt;</button>
+                  <div></div>
+                  <button class="btn btn4">&downarrow;</button>
+                  <div></div>
+                </div>
+              </div>
+              <div class="btn-up-right">
+                <button class="sml-btn" style="border-radius: 50%;width: 32px;height: 32px;background: #111;font-size: 10px;font-weight: bold;">MODE</button>
+                <button class="sml-btn" style="grid-column: 2; border-radius: 50%;width: 32px;height: 32px;background: #111;font-weight: bold;">ON</button>
+                <button class="sml-btn" style="width: 35px;height: 25px;background: #111;border-radius: 40%;font-weight: bold;">x⁻¹</button>
+                <button class="sml-btn" style="width: 35px;height: 25px;background: #111;border-radius: 40%;font-size: 10px;font-weight: bold;">log <sub>▪</sub><sup>□</sup></button>
+              </div>
+            </div>
+            <div class="btn-mid">
+              <button class="sml-btn">÷</button>
+              <button class="sml-btn">√□</button>
+              <button class="sml-btn">x²</button>
+              <button class="sml-btn">x <sup>□</sup></button>
+              <button class="sml-btn">log</button>
+              <button class="sml-btn" style="grid-column: 6;">ln</button>
+              <button class="sml-btn">( - )</button>
+              <button class="sml-btn">°‘’’</button>
+              <button class="sml-btn">hyp</button>
+              <button class="sml-btn">sin</button>
+              <button class="sml-btn">cos</button>
+              <button class="sml-btn">tan</button>
+              <button class="sml-btn">RCL</button>
+              <button class="sml-btn">ENG</button>
+              <button class="sml-btn">(</button>
+              <button class="sml-btn">)</button>
+              <button class="sml-btn">S⇌D</button>
+              <button class="sml-btn">M+</button>
+            </div>
+          </div>
+          <div class="big-button">
+            <button class="bg-btn">7</button>
+            <button class="bg-btn">8</button>
+            <button class="bg-btn">9</button>
+            <button class="bg-btn" style="background: dodgerblue; color: #fff;">DEL</button>
+            <button class="bg-btn" style="grid-column: 5; background: dodgerblue; color: #fff;">AC</button>
+            <button class="bg-btn">4</button>
+            <button class="bg-btn">5</button>
+            <button class="bg-btn">6</button>
+            <button class="bg-btn">×</button>
+            <button class="bg-btn">÷</button>
+            <button class="bg-btn">1</button>
+            <button class="bg-btn">2</button>
+            <button class="bg-btn">3</button>
+            <button class="bg-btn">+</button>
+            <button class="bg-btn">-</button>
+            <button class="bg-btn">0</button>
+            <button class="bg-btn">.</button>
+            <button class="bg-btn">E</button>
+            <button class="bg-btn">Ans</button>
+            <button class="bg-btn">=</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <audio src="click.mp3" id="clickSound"></audio>
+  <script>
+    // অডিও ফাইল প্লে করার ফাংশন
+    function playSound() {
+      const sound = document.getElementById('clickSound');
+      sound.currentTime = 0; // প্রতিবার শুরু থেকে বাজবে
+      sound.play().catch(error => {
+        console.log('Audio play failed:', error); // ব্রাউজারে এরর হ্যান্ডল করার জন্য
+      });
+    }
+    
+    
+    
+    // ইনপুট এবং আউটপুট ফিল্ড সিলেক্ট করা
+    const inputField = document.querySelector('.input');
+    const outputField = document.querySelector('.output');
+    const cursor = document.querySelector('#cursor');
+    
+    // সব বোতাম সিলেক্ট করা
+    const buttons = document.querySelectorAll('button');
+    
+    // মেমরি ভ্যারিয়েবল
+    let memory = 0;
+    let lastAnswer = 0;
+    let expression = '';
+    let shiftActive = false;
+    let alphaActive = false;
+    let cursorPosition = 0; // কারসরের বর্তমান অবস্থান
+    
+    // প্রতিটি বোতামে আইডি সেট করা এবং ক্লিক ইভেন্ট যোগ করা
+    buttons.forEach((button, index) => {
+      button.setAttribute('id', `btn-${index}`);
+      button.addEventListener('click', () => handleButtonClick(button.innerHTML));
+    });
+    
+    // ডিসপ্লে আপডেট ফাংশন
+    function updateDisplay() {
+      let displayText = expression;
+      displayText = displayText.slice(0, cursorPosition) + '<span id="cursor">|</span>' + displayText.slice(cursorPosition);
+      inputField.innerHTML = displayText;
+      // আউটপুট ফিল্ডে শুধুমাত্র ফলাফল দেখানোর জন্য
+      try {
+        let evalExpression = expression
+          .replace(/sin/g, 'Math.sin')
+          .replace(/cos/g, 'Math.cos')
+          .replace(/tan/g, 'Math.tan')
+          .replace(/log/g, 'Math.log10')
+          .replace(/ln/g, 'Math.log')
+          .replace(/√□/g, 'Math.sqrt')
+          .replace(/x²/g, '**2')
+          .replace(/x <sup>□<\/sup>/g, '**')
+          .replace(/x<sup>-1<\/sup>/g, '**-1')
+          .replace(/E/g, 'Math.E')
+          .replace(/Ans/g, lastAnswer)
+          .replace(/÷/g, '/')
+          .replace(/×/g, '*');
+        
+        const result = eval(evalExpression);
+        outputField.innerHTML = isNaN(result) || !isFinite(result) ? '' : result;
+      } catch (error) {
+        outputField.innerHTML = 'error';
+      }
+    }
+    
+    // ফাংশন হ্যান্ডলার
+    function handleButtonClick(value) {
+      playSound();
+      switch (value) {
+        case 'AC':
+          expression = '';
+          memory = 0;
+          lastAnswer = 0;
+          cursorPosition = 0;
+          updateDisplay();
+          break;
+          
+        case 'DEL':
+          if (cursorPosition > 0) {
+            expression = expression.slice(0, cursorPosition - 1) + expression.slice(cursorPosition);
+            cursorPosition--;
+          }
+          updateDisplay();
+          break;
+          
+        case '=':
+          try {
+            let evalExpression = expression
+              .replace(/sin/g, 'Math.sin')
+              .replace(/cos/g, 'Math.cos')
+              .replace(/tan/g, 'Math.tan')
+              .replace(/log/g, 'Math.log10')
+              .replace(/ln/g, 'Math.log')
+              .replace(/√□/g, 'Math.sqrt')
+              .replace(/x²/g, '**2')
+              .replace(/x <sup>□<\/sup>/g, '**')
+              .replace(/x<sup>-1<\/sup>/g, '**-1')
+              .replace(/E/g, 'Math.E')
+              .replace(/Ans/g, lastAnswer)
+              .replace(/÷/g, '/')
+              .replace(/×/g, '*');
+            
+            const result = eval(evalExpression);
+            outputField.innerHTML = result;
+            lastAnswer = result;
+            expression = result.toString();
+            cursorPosition = expression.length;
+          } catch (error) {
+            outputField.innerHTML = 'Error';
+          }
+          updateDisplay();
+          break;
+          
+        case 'SHIFT':
+          shiftActive = !shiftActive;
+          break;
+          
+        case 'ALPHA':
+          alphaActive = !alphaActive;
+          break;
+          
+        case 'M+':
+          memory += parseFloat(outputField.innerHTML || 0);
+          break;
+          
+        case 'M-':
+          memory -= parseFloat(outputField.innerHTML || 0);
+          break;
+          
+        case 'RCL':
+          expression = expression.slice(0, cursorPosition) + memory + expression.slice(cursorPosition);
+          cursorPosition += memory.toString().length;
+          updateDisplay();
+          break;
+          
+        case 'S⇌D':
+          if (outputField.innerHTML) {
+            const num = parseFloat(outputField.innerHTML);
+            outputField.innerHTML = num.toString();
+          }
+          break;
+          
+        case 'sin':
+        case 'cos':
+        case 'tan':
+        case 'log':
+        case 'ln':
+          expression = expression.slice(0, cursorPosition) + value + '(' + expression.slice(cursorPosition);
+          cursorPosition += value.length + 1;
+          updateDisplay();
+          break;
+          // handleButtonClick ফাংশনের মধ্যে '√□' কেস
+        case '√□':
+          // √() যোগ করো এবং কারসর ব্র্যাকেটের মাঝে রাখো
+          expression = expression.slice(0, cursorPosition) + '√()' + expression.slice(cursorPosition);
+          cursorPosition += 2; // '√(' এর দৈর্ঘ্য
+          updateDisplay();
+          break;
+          
+          
+          // updateDisplay ফাংশন
+          function updateDisplay() {
+            // ডিসপ্লের জন্য expression কপি করো
+            let displayText = expression.replace(/√\(/g, '√(');
+            inputField.innerHTML = displayText.slice(0, cursorPosition) + '<span id="cursor">|</span>' + displayText.slice(cursorPosition);
+            // ক্যালকুলেশনের জন্য expression প্রস্তুত করো
+            try {
+              let evalExpression = expression
+                .replace(/√\(/g, 'Math.sqrt(')
+                .replace(/sin/g, 'Math.sin')
+                .replace(/cos/g, 'Math.cos')
+                .replace(/tan/g, 'Math.tan')
+                .replace(/log/g, 'Math.log10')
+                .replace(/ln/g, 'Math.log')
+                .replace(/x²/g, '**2')
+                .replace(/x <sup>□<\/sup>/g, '**')
+                .replace(/x<sup>-1<\/sup>/g, '**-1')
+                .replace(/E/g, 'Math.E')
+                .replace(/Ans/g, lastAnswer)
+                .replace(/÷/g, '/')
+                .replace(/×/g, '*');
+              const result = eval(evalExpression);
+              outputField.innerHTML = isNaN(result) || !isFinite(result) ? '' : result;
+            } catch {
+              outputField.innerHTML = '';
+            }
+          }
+          
+          // '=' কেস (নিশ্চিত করতে যে রেজাল্ট সঠিকভাবে আসে)
+        case '=':
+          try {
+            let evalExpression = expression
+              .replace(/√\(/g, 'Math.sqrt(')
+              .replace(/sin/g, 'Math.sin')
+              .replace(/cos/g, 'Math.cos')
+              .replace(/tan/g, 'Math.tan')
+              .replace(/log/g, 'Math.log10')
+              .replace(/ln/g, 'Math.log')
+              .replace(/x²/g, '**2')
+              .replace(/x <sup>□<\/sup>/g, '**')
+              .replace(/x⁻¹/g, '**-1')
+              .replace(/E/g, 'Math.E')
+              .replace(/Ans/g, lastAnswer)
+              .replace(/÷/g, '/')
+              .replace(/×/g, '*');
+            const result = eval(evalExpression);
+            if (isNaN(result) || !isFinite(result)) {
+              outputField.innerHTML = 'Error';
+            } else {
+              outputField.innerHTML = result;
+              lastAnswer = result;
+              expression = result.toString();
+              cursorPosition = expression.length;
+            }
+          } catch {
+            outputField.innerHTML = 'Error';
+          }
+          updateDisplay();
+          break;
+        case 'x²':
+          let lastExpression = expression.match(/(\([^()]*\)|[\d.]+)$/);
+          if (lastExpression) {
+            let value = lastExpression[0];
+            let start = expression.lastIndexOf(value);
+            // পুরো এক্সপ্রেশন বা সংখ্যাকে ব্র্যাকেটে রাখো এবং স্কয়ার করো
+            expression = expression.slice(0, start) + `(${value})**2` + expression.slice(start + value.length);
+            // ডিসপ্লের জন্য **2 কে ² দিয়ে রিপ্লেস করো
+            let displayText = expression.replace(/\*\*2/g, '²');
+            cursorPosition = start + value.length + 5; // ব্র্যাকেট + ² এর জন্য
+            inputField.innerHTML = displayText.slice(0, cursorPosition) + '<span id="cursor">|</span>' + displayText.slice(cursorPosition);
+            // রেজাল্ট ক্যালকুলেট করো
+            try {
+              let evalExpression = expression
+                .replace(/sin/g, 'Math.sin')
+                .replace(/cos/g, 'Math.cos')
+                .replace(/tan/g, 'Math.tan')
+                .replace(/log/g, 'Math.log10')
+                .replace(/ln/g, 'Math.log')
+                .replace(/√□/g, 'Math.sqrt')
+                .replace(/x²/g, '**2')
+                .replace(/x <sup>□<\/sup>/g, '**')
+                .replace(/x⁻¹/g, '**-1')
+                .replace(/E/g, 'Math.E')
+                .replace(/Ans/g, lastAnswer)
+                .replace(/÷/g, '/')
+                .replace(/×/g, '*');
+              const result = eval(evalExpression);
+              outputField.innerHTML = isNaN(result) || !isFinite(result) ? '' : result;
+            } catch {
+              outputField.innerHTML = 'error';
+            }
+          }
+          break;
+        case 'x⁻¹':
+          let lastExpression1 = expression.match(/(\([^()]*\)|[\d.]+)$/);
+          if (lastExpression1) {
+            let value = lastExpression1[0];
+            let start = expression.lastIndexOf(value);
+            // পুরো এক্সপ্রেশন বা সংখ্যাকে ব্র্যাকেটে রাখো এবং স্কয়ার করো
+            expression = expression.slice(0, start) + `(${value})**-1` + expression.slice(start + value.length);
+            // ডিসপ্লের জন্য **2 কে ² দিয়ে রিপ্লেস করো
+            let displayText = expression.replace(/\*\*-1/g, '⁻¹');
+            cursorPosition = start + value.length + 6; // ব্র্যাকেট + ² এর জন্য
+            inputField.innerHTML = displayText.slice(0, cursorPosition) + '<span id="cursor">|</span>' + displayText.slice(cursorPosition);
+            // রেজাল্ট ক্যালকুলেট করো
+            try {
+              let evalExpression = expression
+                .replace(/sin/g, 'Math.sin')
+                .replace(/cos/g, 'Math.cos')
+                .replace(/tan/g, 'Math.tan')
+                .replace(/log/g, 'Math.log10')
+                .replace(/ln/g, 'Math.log')
+                .replace(/√□/g, 'Math.sqrt')
+                .replace(/x²/g, '**2')
+                .replace(/x <sup>□<\/sup>/g, '**')
+                .replace(/x⁻¹/g, '**-1')
+                .replace(/E/g, 'Math.E')
+                .replace(/Ans/g, lastAnswer)
+                .replace(/÷/g, '/')
+                .replace(/×/g, '*');
+              const result = eval(evalExpression);
+              outputField.innerHTML = isNaN(result) || !isFinite(result) ? '' : result;
+            } catch {
+              outputField.innerHTML = 'error';
+            }
+          }
+          break;
+          
+        case 'hyp':
+          expression = expression.slice(0, cursorPosition) + 'Math.hypot(' + expression.slice(cursorPosition);
+          cursorPosition += 'Math.hypot('.length;
+          updateDisplay();
+          break;
+          
+        case '°‘’’':
+          expression = expression.slice(0, cursorPosition) + 'degToRad(' + expression.slice(cursorPosition);
+          cursorPosition += 'degToRad('.length;
+          updateDisplay();
+          break;
+          
+        case 'ENG':
+          if (outputField.innerHTML) {
+            const num = parseFloat(outputField.innerHTML);
+            outputField.innerHTML = num.toExponential();
+          }
+          break;
+          
+        case 'CALC':
+          try {
+            let evalExpression = expression
+              .replace(/sin/g, 'Math.sin')
+              .replace(/cos/g, 'Math.cos')
+              .replace(/tan/g, 'Math.tan')
+              .replace(/log/g, 'Math.log10')
+              .replace(/ln/g, 'Math.log')
+              .replace(/√□/g, 'Math.sqrt')
+              .replace(/x²/g, '**2')
+              .replace(/x <sup>□<\/sup>/g, '**')
+              .replace(/x<sup>-1<\/sup>/g, '**-1')
+              .replace(/E/g, 'Math.E')
+              .replace(/Ans/g, lastAnswer)
+              .replace(/÷/g, '/')
+              .replace(/×/g, '*');
+            
+            const result = eval(evalExpression);
+            outputField.innerHTML = result;
+            lastAnswer = result;
+            expression = result.toString();
+            cursorPosition = expression.length;
+          } catch (error) {
+            outputField.innerHTML = 'Error';
+          }
+          updateDisplay();
+          break;
+        case '∫□dx':
+        case 'log <sub>▪</sub><sup>□</sup>':
+          expression = expression.slice(0, cursorPosition) + value + expression.slice(cursorPosition);
+          cursorPosition += value.length;
+          updateDisplay();
+          break;
+          
+        case '&lt;':
+          if (cursorPosition > 0) {
+            cursorPosition--;
+            updateDisplay();
+          }
+          break;
+          
+        case '&gt;':
+          if (cursorPosition < expression.length) {
+            cursorPosition++;
+            updateDisplay();
+          }
+          break;
+          
+        default:
+          expression = expression.slice(0, cursorPosition) + value + expression.slice(cursorPosition);
+          cursorPosition += value.length;
+          updateDisplay();
+          break;
+      }
+    }
+    
+    // ডিগ্রি থেকে রেডিয়ানে রূপান্তর (sin, cos, tan এর জন্য)
+    function degToRad(degrees) {
+      return (degrees * Math.PI) / 180;
+    }
+  </script>
+</body>
+
+</html>
